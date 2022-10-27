@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+varProd:
+  prod: 2
+varTest:
+  test: 8
+server:
+  port: 5000
+  output:
+    ansi:
+      enabled: ALWAYS
+  logging:
+    level:
+      services: DEBUG
+      root: INFO
