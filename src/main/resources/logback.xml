@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="MYCUSTOMLOGS" value="./myCustomLogs" />
+    <property name="LOGS" value="./myCustomLogs" />
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
@@ -39,7 +39,7 @@
     </root>
 
     <!-- LOG "com.baeldung*" at TRACE level -->
-    <logger name="com.logging.logging_01" level="trace" additivity="false">
+    <logger name="com.logging.logging_01" level="info" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

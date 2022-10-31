@@ -4,6 +4,7 @@ import com.logging.logging_01.services.ExpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +15,11 @@ public class BasicController {
 
     Logger logger = LoggerFactory.getLogger(BasicController.class);
 
-    @Autowired
-    Environment environment;
+    @Value("${firstValue}")
+    private String firstValue;
+
+    @Value("${secondValue}")
+    private String secondValue;
 
     @Autowired
     ExpService expService;
@@ -26,18 +30,15 @@ public class BasicController {
         return "Welcome at localhost!";
     }
 
-    @GetMapping("/expTwo")
-    public int getExpProd() {
+    @GetMapping("/exp")
+    public double powerMethod() {
         logger.info("Info message of services prod");
-        System.out.println("The power of " + environment.getProperty("varProd.prod") + " is " + expService.powerProd());
-        return expService.powerProd();
-    }
-
-    @GetMapping("/expEight")
-    public int getExpTest() {
-        logger.info("Info message of services test");
-        System.out.println("The power of " + environment.getProperty("varTest.test") + " is " + expService.powerTest());
-        return expService.powerTest();
+        int first = Integer.parseInt(firstValue);
+        int second = Integer.parseInt(secondValue);
+        logger.info("Calling service of power: (" + firstValue + ", " + secondValue + ")");
+        double result = expService.power(first, second);
+        logger.info("Result: " + result);
+        return result;
     }
 
     @GetMapping("/errors")
@@ -45,6 +46,4 @@ public class BasicController {
         Error error = new Error("This is an Error!");
         logger.error("This is the error logging", error);
     }
-
-
 }
